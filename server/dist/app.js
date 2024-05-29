@@ -1,17 +1,24 @@
 import dotenv from "dotenv";
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { schema } from "./graphql/schema/schema.js";
+import { connectDB } from "./database/database.js";
+import { getAllUsers } from "./controllers/user.js";
+import { getAllCourses } from "./controllers/course.js";
 dotenv.config({ path: "./.env" });
 export const envMode = process.env.NODE_ENV?.trim() || "DEVELOPMENT";
 const port = Number(process.env.PORT) || 3000;
+connectDB(process.env.MONGO_URI);
 const server = new ApolloServer({
-    typeDefs: 'type Query{ hello: String, name: String }',
+    typeDefs: schema,
     resolvers: {
         Query: {
             hello: () => "Hello World",
-            name: () => "Siddhartha Sarkar"
+            name: () => "Siddhartha Sarkar",
+            users: getAllUsers,
+            courses: getAllCourses,
         },
-    }
+    },
 });
 startStandaloneServer(server, {
     listen: {
