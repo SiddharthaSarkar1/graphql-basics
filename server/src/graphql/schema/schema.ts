@@ -31,20 +31,28 @@ type Course{
     updatedAt: String!
 }
 
-# type Section{
-
-# }
-
-# type Lecture{
-
-# }
+type Lecture{
+    _id: ID
+    title: String!
+    description: String!
+    position: Int!
+    resources: String!
+    videoUrl: String!
+    section: String!
+    course: Course!
+    instructor: User!
+    isPublished: Boolean!
+    isPreview: Boolean!
+    createdAt: String!
+    updatedAt: String!
+}
 
 type Query{
     hello: String,
     name: String,
     users: [User],
     courses: [Course],
-    # sections: [Section],
-    # lectures: [Lecture]
+    course(id: ID!): Course,
+    lectures: [Lecture]
 }
 `;

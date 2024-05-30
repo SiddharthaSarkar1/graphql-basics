@@ -5,7 +5,7 @@ import { schema } from "./graphql/schema/schema.js";
 import { connectDB } from "./database/database.js";
 import mongoose from "mongoose";
 import { getAllUsers } from "./controllers/user.js";
-import { getAllCourses } from "./controllers/course.js";
+import { getAllCourses, getAllLectures, getCourseById } from "./controllers/course.js";
 
 dotenv.config({ path: "./.env" });
 
@@ -22,6 +22,8 @@ const server = new ApolloServer({
       name: () => "Siddhartha Sarkar",
       users: getAllUsers,
       courses: getAllCourses,
+      course: getCourseById,
+      lectures: getAllLectures
     },
   },
 });
