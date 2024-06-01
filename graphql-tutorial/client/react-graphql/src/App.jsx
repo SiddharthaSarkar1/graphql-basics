@@ -24,7 +24,16 @@ function App() {
   return (
     <>
       <div className="">
-        {JSON.stringify(data)}
+        <table style={{border: "2px solid white"}}>
+          <tbody>
+            {
+              data.getTodos.map(todo => <tr style={{border: "1px solid white"}} key={todo.id}>
+                <td>{todo.title}</td>
+                <td>{todo.user.name}</td>
+              </tr>)
+            }
+          </tbody>
+        </table>
       </div>
     </>
   );
